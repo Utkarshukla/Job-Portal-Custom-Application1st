@@ -30,8 +30,5 @@ Route::get('/edit',[Auth::class,'edit']);
 Route::post('/updates',[Auth::class,'updates']);
 
 
-Route::get('/apply/{slug}',function($id){
-    
-    return view('apply',['slug'=>$id]);
-});
+Route::get('/apply/{slug}',[InsertController::class,'apply']);
 

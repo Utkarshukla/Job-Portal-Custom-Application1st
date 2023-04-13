@@ -67,6 +67,17 @@ class InsertController extends Controller
     }
 
     public function profile(){
-        return view('profile');
+        if(session()->has('name')){
+            return view('profile');
+        }else{
+            return redirect('/login');
+        }
+        
     }
+    public function apply($slug){
+        $data =DB::table('post')->where('slug','=',$slug)->get();
+        return view('apply',['apply'=>$data]);
+    }
+
+
 }
