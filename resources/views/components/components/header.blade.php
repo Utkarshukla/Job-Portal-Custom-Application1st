@@ -121,18 +121,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href={{ asset('/') }}>Jobs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href={{ asset('/post') }}>Add_Post</a>
-                    </li>
-
-
                     {{-- <li class="nav-item">
-                <a class="nav-link" href="#">something</a>
-              </li> --}}
-
+                        <a class="nav-link active" aria-current="page" href={{ asset('/') }}>Jobs</a>
+                    </li> --}}
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -145,15 +136,29 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Login with Google</a></li>
+                            <li><a class="dropdown-item" href={{asset('/signup-google')}}>Login with Google</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href={{ asset('/profile') }}><span>
                                 @if (session('name'))
-                                    {{ session('name') }},
+                                    {{ session('name') }}
                                 @endif
                             </span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href={{ asset('/post') }}> <span>
+                            @if (session('role')==1)
+                                Add_Post
+                            @endif
+                        </span>
+                        </a>
+                    </li>
+                    <li class="nav-item"><span>
+                        @if (session('name'))
+                        <a class="nav-link active" aria-current="page" href={{ asset('/logout') }}>Logout</a>
+                        @endif
+                        </span>
                     </li>
                 </ul>
                 <form class="d-flex" role="search" type="get" action="{{ url('/search') }}">

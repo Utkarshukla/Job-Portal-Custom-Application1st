@@ -1,7 +1,9 @@
 <x-components.header title="DashBoard" />
-
-
-<body>
+<style>
+    body{
+        margin: 0.4px;
+    }
+</style>
 
     <br>
     <h1>
@@ -27,8 +29,17 @@
                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Know More
                     </button>
-                    <br><br>
-                        <a href="/apply/{{$job->slug}}" class="btn btn-success">Apply Now</a>
+                    <br><br><span>
+                        
+                            @if ( session('name')==null)
+                            <a href="/login" class="btn btn-primary"> Login For Apply</a>
+                            @elseif ( session('role')==1)
+                            <a  class="btn btn-danger"> You are Hiring can't apply</a>
+                            @else
+                            <a href="/apply/{{$job->slug}}" class="btn btn-success"> Apply Now</a>
+                            @endif
+                        
+                           </span>
                    
 
                     <!-- Modal -->

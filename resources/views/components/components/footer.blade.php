@@ -24,21 +24,18 @@
                     <h3>Contact</h3>
                  
                     
-                        <a href="https://api.WhatsApp.com/send?phone:+919415190479" target="_black"><i
+                        {{-- <a href="https://api.WhatsApp.com/send?phone:+919415190479" target="_black"><i
                                     class="icon ion-social-whatsapp" aria-hidden="true"></i>
                             </a>
                         <a href="tel: +919415190479"><i class="icon ion-android-call" aria-hidden="true"></i>
                             </a>
-                         <a href="mailto: shuklautkarsh742@gmail.com"><i class="icon ion-email "
-                                    aria-hidden="true"></i>
-                            </a>
+                         --}}
                     
                 </div>
                 <div class="col-md-6 item text">
                     <h3>CorpoRate_Adda</h3>
-                    <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula
-                        rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel
-                        in justo.</p>
+                    <p>hello! Dear Viewer , my self Utkarsh Shukla and I wish to inform you that 
+                        This is my first laravel complete project, if you have any quries feel free to ask me . Contact details are provided. </p>
                 </div>
                 <div class="col item social">
                     <a href="https://www.facebook.com/"><i class="icon ion-social-facebook"></i></a>
@@ -46,11 +43,13 @@
                     <a href="https://www.linkedin.com/in/utkarsh-shukla-33a077218/"><i
                             class="icon ion-social-linkedin"></i></a>
 
-                    <a href=""><i class="icon ion-social-instagram"></i></a>
+                            <a href="mailto: shuklautkarsh742@gmail.com"><i class="icon ion-email "
+                                aria-hidden="true"></i>
+                        </a>
                 </div>
             </div>
-            <h3><a class="nav-link active" aria-current="page" href={{ asset('/logout') }}>Logout</a></h3>
-            <p class="copyright">Company Name © 2018</p>
+            
+            <p class="copyright">CorpoRate_Adda © 2023</p>
         </div>
     </footer>
 </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;;
+use Illuminate\Support\Str;
 class InsertController extends Controller
 {
 
@@ -22,7 +22,7 @@ class InsertController extends Controller
 
     public function display()
     {
-        $jobs = DB::table('post')->orderBY('jobid', 'DESC')->paginate(8);
+        $jobs = DB::table('post')->orderBY('jobid', 'DESC')->paginate(10);
         return view('welcome', ['jobs' => $jobs]);
     }
     public function insert(Request $request)
@@ -31,7 +31,7 @@ class InsertController extends Controller
         if (session()->has('name')) {
             DB::table('post')->insert([
                 'position' => $request->position,
-                'slug'=>Str::slug($request->position),
+                'slug'=>Str::slug($request->position).'-'.date('dmYHis'),
                 'company' => $request->company,
                 'experience' => $request->experience,
                 'skills' => $request->skills,

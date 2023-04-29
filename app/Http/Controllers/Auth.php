@@ -36,7 +36,7 @@ class Auth extends Controller
                     'name' => $user->fname,
                     'email' => $user->email,
                     'phone' => $user->phone,
-
+                    'role'=>$user->role,
                     'updates' => $user->updated_at
                 ]);
                 return redirect('/');
@@ -59,8 +59,10 @@ class Auth extends Controller
         $request->validate([
             'fname' => 'required',
             'lname' => 'required',
+            'role'  =>  'required',
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|min:10|max:13|unique:users,phone',
+            'cityid'  =>  'required',
             'password' => 'required|min:6'
         ]);
        
@@ -68,8 +70,10 @@ class Auth extends Controller
         $user = new User();
         $user->fname = $request->fname;
         $user->lname = $request->lname;
+        $user->role  = $request->role;
         $user->email = $request->email;
         $user->phone = $request->phone;
+        $user->cityid= $request->cityid;
         $user->password = Hash::make($request->password); //hashing password
         $user->created_at = date('Y-m-d H:i:s');
 
@@ -119,11 +123,17 @@ class Auth extends Controller
             'loginId'=>$request->id,
             'name'=>$request->fname,
             'email' => $request->email,
+            'role'=>$request->role,
             'phone' => $request->phone,
 
             'updates' => $request->updated_at
         ]);
 
         return back()->with('success', 'updated');
+    }
+
+
+    public function signup_google(){
+        return redirect('/');
     }
 }

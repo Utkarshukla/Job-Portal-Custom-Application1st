@@ -14,9 +14,13 @@
     @endif
     @csrf
     <div class="input-group">
-        <span class="input-group-text">First and last name</span>
-        <input type="text" aria-label="First name" class="form-control" name="fname"required>
+
+        <span class="input-group-text">First name</span>
+        <input type="text" aria-label="First name" class="form-control" name="fname"required> <br>
+
+        <span class="input-group-text"> last name</span>
         <input type="text" aria-label="Last name" class="form-control" name="lname">
+
         <div>
             <span class="text-danger">
                 @error('fname')
@@ -28,6 +32,18 @@
                     {{ $message }}
                 @enderror
             </span>
+        </div>
+    </div>
+    <br><label for="exampleInputEmail1" class="form-label">If you select Hiring you cann't apply for any job.</label> <br>
+    <div class="input-group mb-3">
+        
+        <select class="custom-select" id="inputGroupSelect02" name="role">
+
+            <option value="1">Hiring</option>
+            <option value="0">Finding Job</option>
+        </select>
+        <div class="input-group-append">
+            <label class="input-group-text" for="inputGroupSelect02">Options</label>
         </div>
     </div>
 
@@ -58,7 +74,15 @@
             @enderror
         </span>
     </div>
-
+    <div class="input-group mb-3">
+        <select class="custom-select" id="inputGroupSelect02" name="cityid" required>
+            <option selected>Choose City And State...</option>
+            <x-components.city />
+        </select>
+        <div class="input-group-append">
+            <label class="input-group-text" for="inputGroupSelect02">Options</label>
+        </div>
+    </div>
 
 
     <div class="row g-3 align-items-center">
