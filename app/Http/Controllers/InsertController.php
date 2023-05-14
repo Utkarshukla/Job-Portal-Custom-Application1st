@@ -6,18 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+
 class InsertController extends Controller
 {
 
 
     public function index()
     {
-        if(session()->has('name')){
+        if (session()->has('name')) {
             return view('post');
-        }else{
+        } else {
             return redirect('/login');
         }
-        
     }
 
     public function display()
@@ -27,11 +27,11 @@ class InsertController extends Controller
     }
     public function insert(Request $request)
     {
-       
+
         if (session()->has('name')) {
             DB::table('post')->insert([
                 'position' => $request->position,
-                'slug'=>Str::slug($request->position).'-'.date('dmYHis'),
+                'slug' => Str::slug($request->position) . '-' . date('dmYHis'),
                 'company' => $request->company,
                 'experience' => $request->experience,
                 'skills' => $request->skills,
@@ -39,10 +39,10 @@ class InsertController extends Controller
                 'location' => $request->location,
                 'salary' => $request->salary,
                 'created_at' => date('Y-m-d H:i:s'),
-                'id'=>session('loginId'),  //foreign key from users 
+                'id' => session('loginId'),  //foreign key from users 
             ]);
             return redirect(route('index'));
-        }else{
+        } else {
             return redirect('/login');
         };
     }
@@ -66,18 +66,67 @@ class InsertController extends Controller
         return view('welcome', ['jobs' => $data]);
     }
 
-    public function profile(){
-        if(session()->has('name')){
-            return view('profile');
-        }else{
+    public function profile()
+    {
+        if (session()->has('name')) {
+            $data = DB::select('SELECT users.fname,users.lname,users.email,post.position,post.description FROM users JOIN application on users.id = application.userId JOIN post ON application.jobid=post.jobid WHERE application.uid =?',[session('loginId')]);
+           // dd($data);
+            return view('profile',['data'=>$data]);
+        }elseif (session()->has('name')) {
+            return view('/profile');
+        } else {
             return redirect('/login');
         }
-        
     }
-    public function apply($slug){
-        $data =DB::table('post')->where('slug','=',$slug)->get();
-        return view('apply',['apply'=>$data]);
+    public function apply($slug)
+    {
+        $rdata = DB::select('select * from post left join users on post.id =users.id where slug = ?', [$slug]);
+        $json = json_encode($rdata);
+        $data = json_decode($json);
+        $new = json_encode($data[0]);
+        //dd($data);
+        $arr = json_decode($new, true);
+        $data=[
+            'jobid'=>array_values($arr)[0],
+            'position'=>array_values($arr)[1],
+            'company'=>array_values($arr)[3],
+            'description'=>array_values($arr)[6],
+            'experience'=>array_values($arr)[4],
+            'skills'=>array_values($arr)[5],
+            'location'=>array_values($arr)[7],
+            'id'=>array_values($arr)[10],
+            'fname'=>array_values($arr)[11],
+            'lname'=>array_values($arr)[12],
+            'email'=>array_values($arr)[14],
+        ];
+        return view('apply', ['apply' => $data]);
+    }
+
+    public function application(Request $request){
+        if (session()->has('name')) {
+            $filename= time()."-rs.".$request->file('resume')->getClientOriginalExtension();
+    
+            $a=$request->file('resume')->storeAs('public/uploads',$filename);
+            DB::table('application')->insert([
+                'userId' => session('loginId'),
+                'jobid'=>$request->jobid,
+                'uid'=>$request->uid,
+                'adescription' => $request->adescription,
+                'resume'=>$a,
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+            return redirect(route('index'));
+        } else {
+            return redirect('/login');
+        };
     }
 
 
+    public function reject(){
+        echo 'form has been rejected';
+
+    }
+    public function select(){
+        echo 'Your form has been shortlisted';
+    }
 }

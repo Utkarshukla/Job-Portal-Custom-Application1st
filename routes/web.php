@@ -31,6 +31,11 @@ Route::post('/updates',[Auth::class,'updates']);
 
 
 Route::get('/apply/{slug}',[InsertController::class,'apply']);
+Route::post('/apply/{slug}',[InsertController::class,'application']);
 
 Route::get('/signup-google',[Auth::class,'signup_google'])->middleware('signup-google');
+Route::get('/reject',[InsertController::class,'reject']);
+
+Route::get('/select',[InsertController::class,'select']);
+
 

@@ -18,11 +18,11 @@
     <div class="tab-content" id="v-pills-tabContent">
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
             tabindex="0">
-            <img src="https://avatars.githubusercontent.com/u/87989573?v=4" class="rounded mx-auto d-block"
-                alt="..." style="height:2in;width:2in">
+            {{-- <img src="https://avatars.githubusercontent.com/u/87989573?v=4" class="rounded mx-auto d-block"
+                alt="..." style="height:2in;width:2in"> --}}
 
             <br>
-            <h1>ID:{{session('loginId')}}</h1>
+            <h1>ID:{{ session('loginId') }}</h1>
             <h1>Name:{{ session('name') }}</h1>
             <h1>Email:{{ session('email') }}</h1>
             <h1>Phone:{{ session('phone') }}</h1>
@@ -91,7 +91,42 @@
         </div>
         <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
             tabindex="0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">*</th>
+                        
+                        <th>Name: </th>
+                      
+                        <th>Email</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
 
+                </thead>
+                @php
+                    $i = 1;
+                    
+                @endphp
+
+                <tbody>
+                    @foreach ($data as $d)
+                    <td>-></td>
+                        <td>{{ $d->fname }} {{ $d->lname }}</td>
+                        <td><a href="">{{ $d->email }}</a></td>
+                        <td>{{$d->position}}</td>
+                        <td>{{$d->description}}</td>
+
+                        <td><button class="btn btn-danger"><a href="{{ url('/reject') }}">Reject</a></button>
+                            <pre></pre><button type="submit"
+                                class="btn btn-success"><a href="{{ url('/select') }}">select</a></button>
+                        </td>
+                       
+                </tbody>
+                <br>
+                @endforeach
+            </table>
 
         </div>
         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"
